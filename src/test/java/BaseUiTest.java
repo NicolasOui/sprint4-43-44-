@@ -3,27 +3,18 @@ import org.junit.Before;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import pages.*;
-
+import pages.MainPage; // Импортируем наш единый класс
+import pages.OrderPage;
 
 public class BaseUiTest {
     protected WebDriver driver;
-
-
-
     protected String browser = System.getProperty("browser", "chrome");
-
-    protected MainPageAccordeon mainPageAccordeon;
-    protected MainPageOrderForm mainPageOrderForm;
-    protected MainPageTopOrderButton mainPageTopOrderButton;
-    protected MainPageLogoSamokat mainPageLogoSamokat;
-    protected MainPageLogoYandex mainPageLogoYandex;
-    protected MainPageOrderFormNegativeHistory mainPageOrderFormNegativeHistory;
+    protected MainPage mainPage;
+    protected OrderPage OrderPage;
 
     @Before
     public void startBrowser() {
-
-        if (browser.equals("chrome")) {
+        if (browser.equalsIgnoreCase("chrome")) {
             driver = new ChromeDriver();
         } else {
             driver = new FirefoxDriver();
@@ -31,21 +22,12 @@ public class BaseUiTest {
 
         driver.get("https://qa-scooter.praktikum-services.ru/");
 
-
-
-
-
-        mainPageAccordeon = new MainPageAccordeon(driver);
-        mainPageOrderForm = new MainPageOrderForm(driver);
-        mainPageTopOrderButton = new MainPageTopOrderButton(driver);
-        mainPageLogoSamokat = new MainPageLogoSamokat(driver);
-        mainPageLogoYandex = new MainPageLogoYandex(driver);
-        mainPageOrderFormNegativeHistory = new MainPageOrderFormNegativeHistory(driver);
+        mainPage = new MainPage(driver);
+        OrderPage = new OrderPage(driver);
     }
 
     @After
-    public void tearDown() {
+   public void tearDown() {
         driver.quit();
     }
 }
-

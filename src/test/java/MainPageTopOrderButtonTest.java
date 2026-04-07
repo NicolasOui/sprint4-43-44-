@@ -6,10 +6,10 @@ public class MainPageTopOrderButtonTest extends BaseUiTest {
 
     @Test
     public void orderTest() {
-        mainPageAccordeon.cookieConfirmation();
-        mainPageTopOrderButton.clickTopOrderButton();
-        assertTrue("Форма заказа не появилась после клика!", mainPageTopOrderButton.isOrderFormVisible());  //assertTrue("Форма заказа не появилась после клика!", mainPageTopOrderButton.orderForm.isDisplayed());
+        mainPage.cookieConfirmation();
+        mainPage.clickTopOrderButton();
+
+        assertTrue("Форма заказа не появилась после клика!",
+                mainPage.isOrderFormVisible());
     }
 }
-
-

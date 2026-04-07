@@ -2,33 +2,42 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-
 public class MainPageOrderFormNegativeHistoryTest extends BaseUiTest {
 
     @Test
-    public void OrderFormNegativeTest() {
-    mainPageOrderFormNegativeHistory.cookieConfirmation();
-    mainPageOrderFormNegativeHistory.clickTopOrderButton();
-    mainPageOrderFormNegativeHistory.clickContiueButton();
+    public void orderFormNegativeTest() {
+        mainPage.cookieConfirmation();
+        mainPage.clickTopOrderButton();
+        mainPage.clickContinueButton();
 
-    assertEquals("Ошбика при заполнении поля Имя", "Введите корректное имя",
-            mainPageOrderFormNegativeHistory.getErrorMessage(mainPageOrderFormNegativeHistory.errorFirstName));
-    assertEquals("Ошбика при заполнении поля Фамилия", "Введите корректную фамилию",
-            mainPageOrderFormNegativeHistory.getErrorMessage(mainPageOrderFormNegativeHistory.errorLastName));
-    assertEquals("Ошбика при заполнении поля Адрес", "",
-                mainPageOrderFormNegativeHistory.getErrorMessageForAdressField(mainPageOrderFormNegativeHistory.errorAdress));
-    assertEquals("Ошбика при заполнении поля Станция метро", "Выберите станцию",
-                mainPageOrderFormNegativeHistory.getErrorMessage(mainPageOrderFormNegativeHistory.errorSubway));
-    assertEquals("Ошбика при заполнении поля Номер телефона", "Введите корректный номер",
+        assertEquals("Ошибка при заполнении поля Имя", "Введите корректное имя",
+                mainPage.getErrorMessage(mainPage.errorFirstName));
 
-    mainPageOrderFormNegativeHistory.getErrorMessage(mainPageOrderFormNegativeHistory.errorPhone));
-    mainPageOrderFormNegativeHistory.completeFiledsToContinuerAndClick();
-    mainPageOrderFormNegativeHistory.findAndFillDateDelivery("12.08.2026");
-    mainPageOrderFormNegativeHistory.clickOrderButton();
-    assertFalse("Поле Срок аренды не заполнено", mainPageOrderFormNegativeHistory.isOrderButtonEnabled());
-    mainPageOrderFormNegativeHistory.clearDateDeliveryField();
-    mainPageOrderFormNegativeHistory.findAndFillLeaseTerme("сутки");
-    mainPageOrderFormNegativeHistory.clickOrderButton();
-    assertFalse("Поле Дата аренды не заполнено", mainPageOrderFormNegativeHistory.isOrderButtonEnabled());
+        assertEquals("Ошибка при заполнении поля Фамилия", "Введите корректную фамилию",
+                mainPage.getErrorMessage(mainPage.errorLastName));
+
+        assertEquals("Ошибка при заполнении поля Адрес", "",
+                mainPage.getErrorMessageForAdressField(mainPage.errorAddress));
+
+        assertEquals("Ошибка при заполнении поля Станция метро", "Выберите станцию",
+                mainPage.getErrorMessage(mainPage.errorSubway));
+
+        assertEquals("Ошибка при заполнении поля Номер телефона", "Введите корректный номер",
+                mainPage.getErrorMessage(mainPage.errorPhone));
+
+        mainPage.completeFiledsToContinuerAndClick();
+
+        // Проверки срока аренды: Дата заполняется, срок аренды нет
+        mainPage.findAndFillDateDelivery("12.08.2026");
+        mainPage.clickOrderButton();
+        assertFalse("Кнопка заказа должна быть заблокирована, если срок аренды пуст",
+                mainPage.isOrderButtonEnabled());
+
+        // Проверить дату: Срок аренды заполнен, дата нет
+        mainPage.clearDateDeliveryField();
+        mainPage.findAndFillLeaseTerm("сутки");
+        mainPage.clickOrderButton();
+        assertFalse("Кнопка заказа должна быть заблокирована, если дата доставки пуста",
+                mainPage.isOrderButtonEnabled());
     }
 }

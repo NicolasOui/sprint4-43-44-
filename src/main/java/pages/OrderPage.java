@@ -5,17 +5,17 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
-public class MainPageOrderForm {
+public class OrderPage {
     WebDriver driver;
     WebDriverWait wait;
 
-    public MainPageOrderForm(WebDriver driver) {
+    public OrderPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
     }
 
     By cookieButton = By.id("rcc-confirm-button");
-    By middleOrderButton = By.xpath(".//div[contains(@class, 'Home_FinishButton')]//button");
+    By middleOrderButton = By.xpath(".//div[contains(@class, 'Home_FinishButton')]//button[text()='Заказать']");
     By placeholderName = By.xpath(".//input[@placeholder='* Имя']");
     By placeholderLastName = By.xpath(".//input[@placeholder='* Фамилия']");
     By placeholderAdress = By.xpath(".//input[@placeholder='* Адрес: куда привезти заказ']");
@@ -41,7 +41,6 @@ public class MainPageOrderForm {
         wait.until(ExpectedConditions.elementToBeClickable(middleOrderButton));
         driver.findElement(middleOrderButton).click();
     }
-
 
     //первая анкета
     public void findAndFillFirstNameFiled(String firstName) {
@@ -81,12 +80,11 @@ public class MainPageOrderForm {
         findAndFillPhone(phone);
     }
 
-
     //вторая анкета
     public void findAndFillDateDelivery(String date) {
         driver.findElement(dateDelivery).click();
         driver.findElement(dateDelivery).sendKeys(date);
-        driver.findElement(dateDelivery).sendKeys(Keys.ENTER);             // Нажать Enter, закрыть календарь не забыть
+        driver.findElement(dateDelivery).sendKeys(Keys.ENTER);
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("react-datepicker__month-container")));
     }
 

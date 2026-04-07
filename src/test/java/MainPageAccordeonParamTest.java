@@ -3,20 +3,18 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import static org.junit.Assert.assertEquals;
 
-
 @RunWith(Parameterized.class)
 public class MainPageAccordeonParamTest extends BaseUiTest {
 
-    public final int index;
-    public final String answer;
-
+    private final int index;
+    private final String answer;
 
     public MainPageAccordeonParamTest(int index, String answer) {
         this.index = index;
         this.answer = answer;
     }
 
-    @Parameterized.Parameters
+    @Parameterized.Parameters(name = "Тестовые данные: индекс {0}")
     public static Object[][] getCredentials() {
         return new Object[][]{
                 {0, "Сутки — 400 рублей. Оплата курьеру — наличными или картой."},
@@ -27,21 +25,15 @@ public class MainPageAccordeonParamTest extends BaseUiTest {
                 {5, "Самокат приезжает к вам с полной зарядкой. Этого хватает на восемь суток — даже если будете кататься без передышек и во сне. Зарядка не понадобится."},
                 {6, "Да, пока самокат не привезли. Штрафа не будет, объяснительной записки тоже не попросим. Все же свои."},
                 {7, "Да, обязательно. Всем самокатов! И Москве, и Московской области."},
-
-
         };
     }
 
-
     @Test
-    public void аccordeonTestAnswer() {
-        mainPageAccordeon.cookieConfirmation();
-        mainPageAccordeon.clickOnAccordeonQuestion(index);
+    public void accordeonTestAnswer() {
+        mainPage.cookieConfirmation(); // Используем общий объект mainPage
+        mainPage.clickOnAccordeonQuestion(index);
 
-        String answerAccordeon = mainPageAccordeon.getActualAccordeonAnswer(index);
+        String answerAccordeon = mainPage.getActualAccordeonAnswer(index);
         assertEquals("Ошибка в ответе № " + index, answer, answerAccordeon);
-
     }
 }
-
-
