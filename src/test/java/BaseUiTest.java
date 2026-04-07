@@ -3,7 +3,8 @@ import org.junit.Before;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import pages.MainPage; // Импортируем наш единый класс
+// один класс добавлен
+import pages.MainPage;
 import pages.OrderPage;
 
 public class BaseUiTest {
